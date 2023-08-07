@@ -1,29 +1,30 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:translations_cleaner/src/models/term.dart';
-import 'package:glob/glob.dart';
-import 'package:glob/list_local_fs.dart';
+import 'package:translations_manager/src/models/term.dart';
+import 'package:translations_manager/src/translation_files.dart';
 
-/// Iterate through all files ending in `*.arb` and extract all the translation
+/// Iterate through all files ending in `*.json` and extract all the translation
 /// terms being used.
 ///
 Set<Term> getTranslationTerms() {
-  final path = Directory.current.path;
-  final arbFile = Glob("$path/**.arb");
-  final arbFiles = arbFile.listSync(followLinks: false);
+  final translationFileList = translationFiles();
 
-  final arbTerms = <Term>{};
+  final jsonTerms = <Term>{};
 
-  for (final file in arbFiles) {
-    final content = File(file.path).readAsStringSync();
-    final map = jsonDecode(content) as Map<String, dynamic>;
-    for (final entry in map.entries) {
-      if (!entry.key.startsWith('@')) {
-        final hasAttribute = map.containsKey('@${entry.key}');
-        arbTerms.add(Term(additionalAttributes: hasAttribute, key: entry.key));
+  try {
+    for (final file in translationFileList) {
+      final content = File(file.path).readAsStringSync();
+      final map = jsonDecode(content) as Map<String, dynamic>;
+      for (final entry in map.entries) {
+        jsonTerms.add(Term(
+            key: entry.key,
+            value: entry.value.toString(),
+            filename: file.path.split('/').last));
       }
     }
+    return jsonTerms;
+  } catch (e) {
+    return jsonTerms;
   }
-  return arbTerms;
 }

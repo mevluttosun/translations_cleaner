@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:translations_cleaner/src/models/term.dart';
+import 'package:translations_manager/src/models/term.dart';
 
 void exportUnusedTerms(Set<Term> notUsed, String? outputPath) {
   if (outputPath == null) {

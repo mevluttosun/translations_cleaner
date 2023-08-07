@@ -2,14 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:translations_cleaner/src/export_unused_terms.dart';
-import 'package:translations_cleaner/src/models/term.dart';
-import 'package:translations_cleaner/src/translation_files.dart';
-import 'package:translations_cleaner/src/unused_terms.dart';
+import 'package:translations_manager/src/export_unused_terms.dart';
+import 'package:translations_manager/src/models/term.dart';
+import 'package:translations_manager/src/translation_files.dart';
+import 'package:translations_manager/src/unused_terms.dart';
 
 /// Delete unused terms from the dart files
 Future<void> deleteTerms(ArgResults? argResults) async {
-  final bool exportTerms = argResults?['export'];
+  final bool exportTerms = argResults?['export'] ?? true;
   final String? outputPath = argResults?['output-path'];
 
   final files = translationFiles();
@@ -23,16 +23,13 @@ Future<void> deleteTerms(ArgResults? argResults) async {
 }
 
 Future<void> _deleteTermsForFile(
-    FileSystemEntity arbFile, Set<Term> terms) async {
-  final fileString = await File(arbFile.path).readAsString();
+    FileSystemEntity jsonFile, Set<Term> terms) async {
+  final fileString = await File(jsonFile.path).readAsString();
   final Map<String, dynamic> fileJson = jsonDecode(fileString);
   for (var term in terms) {
     fileJson.remove(term.key);
-    if (term.additionalAttributes) {
-      fileJson.remove('@${term.key}');
-    }
   }
   // Indent is being used for proper formatting
-  await File(arbFile.path)
+  await File(jsonFile.path)
       .writeAsString(JsonEncoder.withIndent(' ' * 4).convert(fileJson));
 }

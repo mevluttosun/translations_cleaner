@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:translations_cleaner/src/export_unused_terms.dart';
-import 'package:translations_cleaner/src/unused_terms.dart';
+import 'package:translations_manager/src/export_unused_terms.dart';
+import 'package:translations_manager/src/unused_terms.dart';
 
 /// Command for listing and exporting unused translations
 class ListUnusedTranslations extends Command {
@@ -24,7 +24,7 @@ class ListUnusedTranslations extends Command {
 
   @override
   String get description =>
-      'Search all the translations listed in arb files and '
+      'Search all the translations listed in json files and '
       'print/save a list of unused translations';
 
   @override
@@ -45,7 +45,7 @@ class ListUnusedTranslations extends Command {
       exportUnusedTerms(notUsed, outputPath);
     } else {
       for (var term in notUsed) {
-        print(term.key);
+        print("⭕️ ${term.filename} => '${term.key}'");
       }
       print('Total ${notUsed.length} unused keys ✅');
     }

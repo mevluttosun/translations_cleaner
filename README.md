@@ -1,54 +1,106 @@
-# translations_cleaner
+`translations_manager`
 
-Dart package to search and delete unused translations from `.arb` files, for all languages, all in one go.
+## Introduction
 
-> NOTE : This package has been developed keeping `flutter_localizations` package in mind, which uses `.arb` files for all translations.
+`translations_manager` is a powerful Dart tool designed to manage and inspect JSON translation files, such as `en_US.json`. With the capability to scrutinize both Dart files and translations, this tool helps in keeping your translations efficient and free from clutter.
 
-![Package in action](https://github.com/Chinmay-KB/translations_cleaner/blob/main/images/terminal.png?raw=true)
+## Installation
 
-## Usage
+(TODO: Provide installation steps here. Typically, instructions for adding the package to the `pubspec.yaml` file, and running `pub get`, are provided.)
 
-```sh
-# Add translations_cleaner as a dev dependency
-dart pub add --dev translations_cleaner
+## Basic Command
 
-dart run translations_cleaner <command> [arguments]
-# OR
-flutter pub run translations_cleaner <command> [arguments]
+To use the `translations_manager`, you need to invoke the Dart runtime followed by the `translations_manager` command:
+dart run translations_manager
 
-```
 
-### Commands Available
 
-- `clean-translations` - Search all the translations listed in arb files and delete the unused translations
-- `list-unused-terms` - Search all the translations listed in arb files and print/save a list of unused translations.
+## Available Tasks
 
-### Options Available
+### 1. Listing Unused Terms
 
-Available only for `list-unused-terms`
+This task inspects all your translations files in tandem with the Dart files to list out all unused translations.
 
-- `-a, --[no-]abort-on-unused` - Abort execution if unused translations are found. This can be helpful in CI, if you don't want to proceed if a build should fail.
+**Command**:
+dart run translations_manager list-unused-terms [options]
 
-Available for both commands
 
-- `-h, --help` - Print this usage information.
-- `-o, --output-path` - Path for saving exported file, defaults to root path of the folder
-- `-e, --[no-]export ` - Save unused keys as a .txt file in the path provided
+#### Options
 
-## Why 🤔
+- `--output-path` OR `-o`: Set the path where the file containing unused translations will be saved.
 
-Translations can be a very time taking process when the app starts to scale and there are a lot many translations.
-Hence it is a good practice to clean the translations if it is not being used.
-Checking for unused translations is tedious, hence this package.
+- `--export` OR `-e`: Decide whether or not to save the unused translations. If not provided, unused translations won't be saved.
 
-## How 🤖
+- `--abort-on-unused` OR `-a`: Abort execution if any unused translations are found.
 
-- `translations_cleaner` looks for all the `.arb` files located in the directory, and fetches all the translations, from all the languages.
-- Then it looks for all the `.dart` files.
-- All the translation terms are looked for in these dart files
-- The translations not found in the dart files are removed from the corresponding `.arb` files, including any attributes as well
+#### Example Usage
 
-## Limitations 😔
+List all unused terms and save them to a specific file:
+dart run translations_manager list-unused-terms -o /path/to/save/unused_terms.json -e
 
-- This package currently works only for l10n achieved via `flutter_localizations`, which uses `.arb` files.
-- There are other l10n packages which use `.json` and `.yaml` for saving translations. These are not supported currently
+
+Abort the command if any unused translations are detected:
+dart run translations_manager list-unused-terms -a
+
+
+### 2. Clean Unused Translations
+
+This task removes all unused translations from your files, ensuring they are as lean as possible.
+
+**Command**:
+dart run translations_manager clean-translations [options]
+
+
+#### Options
+
+- `--output-path` OR `-o`: Set the path where the file containing cleaned translations will be saved.
+
+- `--export` OR `-e`: Decide whether or not to save the cleaned translations to the specified output path. If not provided, cleaned translations won't be saved.
+
+#### Example Usage
+
+Clean all unused translations and save the result to a specific file:
+dart run translations_manager clean-translations -o /path/to/save/cleaned_translations.json -e
+
+
+Simply clean the translations without saving:
+dart run translations_manager clean-translations
+
+### 3. Compare Translations
+
+This task is designed to compare your translation files with each other, pinpointing any missing terms to ensure consistency across different languages.
+
+**Command**:
+dart run translations_manager compare-translation
+
+### 4. Configure Translate API
+
+This task lets you set up your Google Translate API key by adding it to the `.env` file. This API key will then be utilized when adding translations.
+
+**Command**:
+dart run translations_manager configure-translate-api [YOUR_API_KEY]
+
+### 5. Add Translation
+
+This task allows you to translate a specific term into supported languages and then add the newly translated terms directly to the translation files.
+
+**Command**:
+dart run translations_manager add-translation [TERM]
+
+
+Upon executing this command, the translated term will be displayed. To save the translated term to the translation files, simply answer 'yes' when prompted.
+
+#### Example Usage
+
+Translate the term "hello" and get a prompt to save the translation:
+dart run translations_manager add-translation hello
+
+
+(Note: Ensure you have previously configured the Translate API key using the `configure-translate-api` command for this functionality to work seamlessly.)
+
+(TODO: Provide any additional details about the supported languages, how the translations are fetched, or other specifics related to this command. Continue with other tasks, how to contribute, version history, etc., if necessary.)
+
+
+
+
+
