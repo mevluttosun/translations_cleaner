@@ -7,6 +7,6 @@ import 'package:glob/list_local_fs.dart';
 List<FileSystemEntity> translationFiles() {
   final path = Directory.current.path;
 
-  final jsonFile = Glob("$path/**??_??.json");
+  final jsonFile = Glob("$path/assets/**??_??.json");
   return jsonFile.listSync(followLinks: false);
 }
