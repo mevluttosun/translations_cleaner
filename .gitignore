@@ -5,6 +5,6 @@
 build/
 .env
 .vscode/
-example/
+assets/
 unused-translations.txt
 lib/src/main.dart

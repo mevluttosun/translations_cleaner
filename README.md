@@ -100,7 +100,12 @@ dart run translations_manager add-translation hello
 
 (TODO: Provide any additional details about the supported languages, how the translations are fetched, or other specifics related to this command. Continue with other tasks, how to contribute, version history, etc., if necessary.)
 
+### 6. Sort Translations
 
+This task sorts all the translations in your translation files in alphabetical order.
+
+**Command**:
+dart run translations_manager sort-translations
 
 
 

@@ -5,6 +5,7 @@ import 'commands/clean_translation.dart';
 import 'commands/compare_translation.dart';
 import 'commands/configure_translate_api.dart';
 import 'commands/list_unused_translations.dart';
+import 'commands/sort_translation.dart';
 
 void main(List<String> arguments) {
   CommandRunner(
@@ -16,5 +17,6 @@ void main(List<String> arguments) {
     ..addCommand(CompareTranslation())
     ..addCommand(ConfigureTranslateApi())
     ..addCommand(AddTranslation())
+    ..addCommand(SortTranslation())
     ..run(arguments);
 }
