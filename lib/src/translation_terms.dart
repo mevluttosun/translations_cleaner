@@ -16,7 +16,9 @@ Set<Term> getTranslationTerms() {
     for (final file in translationFileList) {
       final content = File(file.path).readAsStringSync();
       final map = jsonDecode(content) as Map<String, dynamic>;
+      // print('map: $map');
       for (final entry in map.entries) {
+        // print('entry: $entry');
         jsonTerms.add(Term(
             key: entry.key,
             value: entry.value.toString(),

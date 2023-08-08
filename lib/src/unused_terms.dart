@@ -16,9 +16,10 @@ Set<Term> findUnusedTerms() {
 
   for (final file in dartFiles) {
     final content = File(file.path).readAsStringSync();
-    for (final json in terms) {
-      if (content.contains(json.key)) {
-        unusedTerms.remove(json);
+    for (final term in terms) {
+      final escapedTerm = escapeSpecialCharacters(term.key);
+      if (content.contains(escapedTerm)) {
+        unusedTerms.remove(term);
       }
     }
   }
@@ -34,11 +35,31 @@ bool isTermUsed(String term) {
 
   for (final file in dartFiles) {
     final content = File(file.path).readAsStringSync();
-    for (final json in terms) {
-      if (content.contains(json.key)) {
+    for (final term in terms) {
+      final escapedTerm = escapeSpecialCharacters(term.key);
+      if (content.contains(escapedTerm)) {
         return true;
       }
     }
   }
   return false;
+}
+
+String escapeSpecialCharacters(String input) {
+  return input.replaceAllMapped(RegExp(r'[\n\r\t\b\f]'), (match) {
+    switch (match[0]) {
+      case '\n':
+        return '\\n';
+      case '\r':
+        return '\\r';
+      case '\t':
+        return '\\t';
+      case '\b':
+        return '\\b';
+      case '\f':
+        return '\\f';
+      default:
+        return match[0]!;
+    }
+  });
 }
