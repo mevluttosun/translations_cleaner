@@ -27,11 +27,11 @@ class FindMissingTranslations extends Command {
 
   @override
   void run() async {
-    final bool exportTerms = argResults?['export'];
+    final bool exportTermsFlag = argResults?['export'];
     final String? outputPath = argResults?['output-path'];
     final missingTerms = findMissingTerms();
-    if (exportTerms) {
-      exportUnusedTerms(missingTerms, outputPath);
+    if (exportTermsFlag) {
+      exportTerms(missingTerms, outputPath, filename: 'missing-translations');
     } else {
       for (var term in missingTerms) {
         print("⭕️ ${term.filename} => '${term.key}'");

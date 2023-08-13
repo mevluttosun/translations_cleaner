@@ -33,7 +33,7 @@ class ListUnusedTranslations extends Command {
   @override
   void run() async {
     final bool abort = argResults?['abort-on-unused'];
-    final bool exportTerms = argResults?['export'];
+    final bool exportTermsFlag = argResults?['export'];
     final String? outputPath = argResults?['output-path'];
     final notUsed = findUnusedTerms();
     if (notUsed.isNotEmpty && abort) {
@@ -41,8 +41,8 @@ class ListUnusedTranslations extends Command {
       exitCode = 1;
       exit(exitCode);
     }
-    if (exportTerms) {
-      exportUnusedTerms(notUsed, outputPath);
+    if (exportTermsFlag) {
+      exportTerms(notUsed, outputPath);
     } else {
       for (var term in notUsed) {
         print("⭕️ ${term.filename} => '${term.key}'");
