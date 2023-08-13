@@ -27,7 +27,7 @@ Set<Term> findMissingTerms() {
       final term = termFromDoubleQuote ?? termFromSingleQuote;
       if (term != null) {
         final termFound = addedTerms.firstWhere(
-          (element) => element.key == term,
+          (element) => escapeSpecialCharacters(element.key) == term,
           orElse: () => Term(
               key: term, filename: dartFile.path.split('/').last, value: ''),
         );
