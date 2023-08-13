@@ -9,14 +9,14 @@ import 'package:translations_manager/src/unused_terms.dart';
 
 /// Delete unused terms from the dart files
 Future<void> deleteTerms(ArgResults? argResults) async {
-  final bool exportTerms = argResults?['export'] ?? true;
+  final bool exportTermsFlag = argResults?['export'] ?? true;
   final String? outputPath = argResults?['output-path'];
 
   final files = translationFiles();
   final terms = findUnusedTerms();
 
-  if (terms.isNotEmpty && exportTerms) {
-    exportUnusedTerms(terms, outputPath);
+  if (terms.isNotEmpty && exportTermsFlag) {
+    exportTerms(terms, outputPath);
   }
   await Future.wait(files.map((file) => _deleteTermsForFile(file, terms)));
   print('${terms.length} terms removed from ${files.length} files each 💪 🚀');
