@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:args/command_runner.dart';
 import 'package:translations_manager/src/export_unused_terms.dart';
 import 'package:translations_manager/src/missing_terms.dart';

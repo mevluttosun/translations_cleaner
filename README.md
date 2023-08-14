@@ -1,19 +1,16 @@
 `translations_manager`
-
 ## Introduction
 
 `translations_manager` is a powerful Dart tool designed to manage and inspect JSON translation files, such as `en_US.json`. With the capability to scrutinize both Dart files and translations, this tool helps in keeping your translations efficient and free from clutter.
 
 ## Installation
-
 (TODO: Provide installation steps here. Typically, instructions for adding the package to the `pubspec.yaml` file, and running `pub get`, are provided.)
-
 ## Basic Command
 
 To use the `translations_manager`, you need to invoke the Dart runtime followed by the `translations_manager` command:
+    ```
 dart run translations_manager
-
-
+    ```
 
 ## Available Tasks
 
@@ -22,8 +19,9 @@ dart run translations_manager
 This task searches through all `.dart` files in the project to check which translation terms are used but have not been added to the translation files. This ensures that every translation string used in the codebase has an appropriate entry in the translation files.
 
 **Command**:
+    ```
 dart run translations_manager find-missing-terms [options]
-
+    ```
 #### Options
 
 - `--output-path` OR `-o`: Set the path where the file containing missing translations will be saved.
@@ -34,8 +32,9 @@ dart run translations_manager find-missing-terms [options]
 #### Example Usage
 
 List all missing terms and save them to a specific file:
+```
 dart run translations_manager find-missing-terms -o /path/to/save/missing_terms.json -e
-
+```
 ### 2. Listing Unused Terms
 
 This task inspects all your translations files in tandem with the Dart files to list out all unused translations.
@@ -54,8 +53,9 @@ dart run translations_manager list-unused-terms [options]
 #### Example Usage
 
 List all unused terms and save them to a specific file:
+```
 dart run translations_manager list-unused-terms -o /path/to/save/unused_terms.json -e
-
+```
 
 Abort the command if any unused translations are detected:
 dart run translations_manager list-unused-terms -a
@@ -78,26 +78,30 @@ dart run translations_manager clean-translations [options]
 #### Example Usage
 
 Clean all unused translations and save the result to a specific file:
+```
 dart run translations_manager clean-translations -o /path/to/save/cleaned_translations.json -e
-
+```
 
 Simply clean the translations without saving:
+```
 dart run translations_manager clean-translations
-
+```
 ### 4. Compare Translations
 
 This task is designed to compare your translation files with each other, pinpointing any missing terms to ensure consistency across different languages.
 
 **Command**:
+```
 dart run translations_manager compare-translation
-
+```
 ### 5. Configure Translate API
 
 This task lets you set up your Google Translate API key by adding it to the `.env` file. This API key will then be utilized when adding translations.
 
 **Command**:
+```
 dart run translations_manager configure-translate-api [YOUR_API_KEY]
-
+```
 ### 6. Add Translation
 
 This task allows you to translate a specific term into supported languages and then add the newly translated terms directly to the translation files.
@@ -111,8 +115,9 @@ Upon executing this command, the translated term will be displayed. To save the 
 #### Example Usage
 
 Translate the term "hello" and get a prompt to save the translation:
+```
 dart run translations_manager add-translation hello
-
+```
 
 (Note: Ensure you have previously configured the Translate API key using the `configure-translate-api` command for this functionality to work seamlessly.)
 
@@ -123,6 +128,7 @@ dart run translations_manager add-translation hello
 This task sorts all the translations in your translation files in alphabetical order.
 
 **Command**:
+```
 dart run translations_manager sort-translations
-
+```
 

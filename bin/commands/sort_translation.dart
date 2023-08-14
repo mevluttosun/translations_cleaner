@@ -1,5 +1,4 @@
 import 'package:args/command_runner.dart';
-import 'package:translations_manager/src/add_terms.dart';
 import 'package:translations_manager/src/sort_terms.dart';
 
 /// Command for sort translation terms in the translation files

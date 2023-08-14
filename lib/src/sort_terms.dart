@@ -1,11 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:args/args.dart';
-import 'package:translations_manager/src/models/term.dart';
-import 'package:translations_manager/src/save_google_api_key.dart';
 import 'package:translations_manager/src/translation_files.dart';
-import 'package:translations_manager/src/translation_terms.dart';
 
 /// Sort translation terms in the translation files
 Future<void> sortTerms() async {
